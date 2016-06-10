@@ -1,0 +1,26 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN"
+"http://standards.freedesktop.org/dbus/introspect-1.0.dtd">
+<node>
+  <interface name="org.alljoyn.Control.Volume">
+    <method name="AdjustVolume">
+      <arg name="delta" type="n" direction="in"/>
+    </method>
+    <method name="AdjustVolumePercent">
+      <arg name="change" type="d" direction="in"/>
+    </method>
+    <signal name="EnabledChanged">
+      <arg name="enabled" type="b" direction="out"/>
+    </signal>
+    <signal name="MuteChanged">
+      <arg name="newMute" type="b" direction="out"/>
+    </signal>
+    <signal name="VolumeChanged">
+      <arg name="newVolume" type="n" direction="out"/>
+    </signal>
+    <property name="Enabled" type="b" access="read"/>
+    <property name="Mute" type="b" access="readwrite"/>
+    <property name="Version" type="q" access="read"/>
+    <property name="Volume" type="n" access="readwrite"/>
+    <property name="VolumeRange" type="(nnn)" access="read"/>
+  </interface>
+</node>

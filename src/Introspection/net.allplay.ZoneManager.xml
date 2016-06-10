@@ -1,0 +1,41 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN"
+"http://standards.freedesktop.org/dbus/introspect-1.0.dtd">
+<node>
+  <interface name="net.allplay.ZoneManager">
+    <method name="CreateZone">
+      <arg name="slaves" type="as" direction="in"/>
+      <arg name="zoneId" type="s" direction="out"/>
+      <arg name="timestamp" type="i" direction="out"/>
+      <arg name="slaves" type="a{si}" direction="out"/>
+    </method>
+    <signal name="EnabledChanged">
+      <arg name="enabled" type="b" direction="out"/>
+    </signal>
+    <signal name="OnZoneChanged">
+      <arg name="zoneId" type="s" direction="out"/>
+      <arg name="timestamp" type="i" direction="out"/>
+      <arg name="slaves" type="a{si}" direction="out"/>
+    </signal>
+    <signal name="PlayerReady">
+      <arg name="resumeLatency" type="t" direction="out"/>
+    </signal>
+    <method name="SetZoneLead">
+      <arg name="zoneId" type="s" direction="in"/>
+      <arg name="timeServerIp" type="s" direction="in"/>
+      <arg name="timeServerPort" type="q" direction="in"/>
+      <arg name="timestamp" type="i" direction="out"/>
+    </method>
+    <signal name="SlaveOutOfData">
+    </signal>
+    <signal name="SlaveState">
+      <arg name="timestamp" type="i" direction="out"/>
+      <arg name="state" type="s" direction="out"/>
+      <arg name="url" type="s" direction="out"/>
+      <arg name="startTime" type="t" direction="out"/>
+      <arg name="currentPosition" type="t" direction="out"/>
+      <arg name="nextStream" type="s" direction="out"/>
+    </signal>
+    <property name="Enabled" type="b" access="read"/>
+    <property name="Version" type="q" access="read"/>
+  </interface>
+</node>

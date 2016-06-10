@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="AllJoynBusObjectManager.cpp" />
+    <ClCompile Include="AllJoynHelpers.cpp" />
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="TypeConversionHelpers.cpp" />
+    <ClCompile Include="MediaPlayer\MediaPlayerConsumer.cpp">
+      <Filter>MediaPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="MediaPlayer\MediaPlayerProducer.cpp">
+      <Filter>MediaPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="MediaPlayer\MediaPlayerServiceEventAdapter.cpp">
+      <Filter>MediaPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="MediaPlayer\MediaPlayerServiceEventArgs.cpp">
+      <Filter>MediaPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="MediaPlayer\MediaPlayerSignals.cpp">
+      <Filter>MediaPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="MediaPlayer\MediaPlayerWatcher.cpp">
+      <Filter>MediaPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="ZoneManager\ZoneManagerConsumer.cpp">
+      <Filter>ZoneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ZoneManager\ZoneManagerProducer.cpp">
+      <Filter>ZoneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ZoneManager\ZoneManagerServiceEventAdapter.cpp">
+      <Filter>ZoneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ZoneManager\ZoneManagerServiceEventArgs.cpp">
+      <Filter>ZoneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ZoneManager\ZoneManagerSignals.cpp">
+      <Filter>ZoneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ZoneManager\ZoneManagerWatcher.cpp">
+      <Filter>ZoneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="MCU\MCUConsumer.cpp">
+      <Filter>MCU</Filter>
+    </ClCompile>
+    <ClCompile Include="MCU\MCUProducer.cpp">
+      <Filter>MCU</Filter>
+    </ClCompile>
+    <ClCompile Include="MCU\MCUServiceEventAdapter.cpp">
+      <Filter>MCU</Filter>
+    </ClCompile>
+    <ClCompile Include="MCU\MCUServiceEventArgs.cpp">
+      <Filter>MCU</Filter>
+    </ClCompile>
+    <ClCompile Include="MCU\MCUSignals.cpp">
+      <Filter>MCU</Filter>
+    </ClCompile>
+    <ClCompile Include="MCU\MCUWatcher.cpp">
+      <Filter>MCU</Filter>
+    </ClCompile>
+    <ClCompile Include="Volume\VolumeConsumer.cpp">
+      <Filter>Volume</Filter>
+    </ClCompile>
+    <ClCompile Include="Volume\VolumeProducer.cpp">
+      <Filter>Volume</Filter>
+    </ClCompile>
+    <ClCompile Include="Volume\VolumeServiceEventAdapter.cpp">
+      <Filter>Volume</Filter>
+    </ClCompile>
+    <ClCompile Include="Volume\VolumeServiceEventArgs.cpp">
+      <Filter>Volume</Filter>
+    </ClCompile>
+    <ClCompile Include="Volume\VolumeSignals.cpp">
+      <Filter>Volume</Filter>
+    </ClCompile>
+    <ClCompile Include="Volume\VolumeWatcher.cpp">
+      <Filter>Volume</Filter>
+    </ClCompile>
+    <ClCompile Include="AllPlayProducer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AllJoynBusObjectManager.h" />
+    <ClInclude Include="AllJoynHelpers.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="TypeConversionHelpers.h" />
+    <ClInclude Include="MediaPlayer\IMediaPlayerService.h">
+      <Filter>MediaPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="MediaPlayer\MediaPlayerConsumer.h">
+      <Filter>MediaPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="MediaPlayer\MediaPlayerEventArgs.h">
+      <Filter>MediaPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="MediaPlayer\MediaPlayerMethodResults.h">
+      <Filter>MediaPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="MediaPlayer\MediaPlayerProducer.h">
+      <Filter>MediaPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="MediaPlayer\MediaPlayerServiceEventAdapter.h">
+      <Filter>MediaPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="MediaPlayer\MediaPlayerServiceEventArgs.h">
+      <Filter>MediaPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="MediaPlayer\MediaPlayerSignals.h">
+      <Filter>MediaPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="MediaPlayer\MediaPlayerWatcher.h">
+      <Filter>MediaPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="MediaPlayer\MediaPlayerStructures.h">
+      <Filter>MediaPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="Structures.h" />
+    <ClInclude Include="ZoneManager\IZoneManagerService.h">
+      <Filter>ZoneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ZoneManager\ZoneManagerConsumer.h">
+      <Filter>ZoneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ZoneManager\ZoneManagerEventArgs.h">
+      <Filter>ZoneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ZoneManager\ZoneManagerMethodResults.h">
+      <Filter>ZoneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ZoneManager\ZoneManagerProducer.h">
+      <Filter>ZoneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ZoneManager\ZoneManagerServiceEventAdapter.h">
+      <Filter>ZoneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ZoneManager\ZoneManagerServiceEventArgs.h">
+      <Filter>ZoneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ZoneManager\ZoneManagerSignals.h">
+      <Filter>ZoneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ZoneManager\ZoneManagerWatcher.h">
+      <Filter>ZoneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="MCU\IMCUService.h">
+      <Filter>MCU</Filter>
+    </ClInclude>
+    <ClInclude Include="MCU\MCUConsumer.h">
+      <Filter>MCU</Filter>
+    </ClInclude>
+    <ClInclude Include="MCU\MCUEventArgs.h">
+      <Filter>MCU</Filter>
+    </ClInclude>
+    <ClInclude Include="MCU\MCUMethodResults.h">
+      <Filter>MCU</Filter>
+    </ClInclude>
+    <ClInclude Include="MCU\MCUProducer.h">
+      <Filter>MCU</Filter>
+    </ClInclude>
+    <ClInclude Include="MCU\MCUServiceEventAdapter.h">
+      <Filter>MCU</Filter>
+    </ClInclude>
+    <ClInclude Include="MCU\MCUServiceEventArgs.h">
+      <Filter>MCU</Filter>
+    </ClInclude>
+    <ClInclude Include="MCU\MCUSignals.h">
+      <Filter>MCU</Filter>
+    </ClInclude>
+    <ClInclude Include="MCU\MCUWatcher.h">
+      <Filter>MCU</Filter>
+    </ClInclude>
+    <ClInclude Include="Volume\IVolumeService.h">
+      <Filter>Volume</Filter>
+    </ClInclude>
+    <ClInclude Include="Volume\VolumeConsumer.h">
+      <Filter>Volume</Filter>
+    </ClInclude>
+    <ClInclude Include="Volume\VolumeEventArgs.h">
+      <Filter>Volume</Filter>
+    </ClInclude>
+    <ClInclude Include="Volume\VolumeMethodResults.h">
+      <Filter>Volume</Filter>
+    </ClInclude>
+    <ClInclude Include="Volume\VolumeProducer.h">
+      <Filter>Volume</Filter>
+    </ClInclude>
+    <ClInclude Include="Volume\VolumeServiceEventAdapter.h">
+      <Filter>Volume</Filter>
+    </ClInclude>
+    <ClInclude Include="Volume\VolumeServiceEventArgs.h">
+      <Filter>Volume</Filter>
+    </ClInclude>
+    <ClInclude Include="Volume\VolumeSignals.h">
+      <Filter>Volume</Filter>
+    </ClInclude>
+    <ClInclude Include="Volume\VolumeStructures.h">
+      <Filter>Volume</Filter>
+    </ClInclude>
+    <ClInclude Include="Volume\VolumeWatcher.h">
+      <Filter>Volume</Filter>
+    </ClInclude>
+    <ClInclude Include="AllPlayProducer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="MediaPlayer">
+      <UniqueIdentifier>{2b7e67fb-70fb-458a-b498-04092d87186b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Volume">
+      <UniqueIdentifier>{6f1ba50d-dd14-49e4-bdc3-1979f9684407}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MCU">
+      <UniqueIdentifier>{4c78c6d6-15e5-4619-8a3e-47cd9e6516bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZoneManager">
+      <UniqueIdentifier>{a40dd3e1-105a-4109-ad58-a0e49bee8622}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

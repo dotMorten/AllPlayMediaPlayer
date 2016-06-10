@@ -1,0 +1,25 @@
+<!DOCTYPE node PUBLIC "-//allseen//DTD ALLJOYN Object Introspection 1.0//EN"
+"http://www.allseen.org/alljoyn/introspect-1.0.dtd">
+<node>
+  <interface name="org.alljoyn.About">
+    <signal name="Announce">
+      <arg name="version" type="q" direction="out"/>
+      <arg name="port" type="q" direction="out"/>
+      <arg name="objectDescription" type="a(oas)" direction="out"/>
+      <arg name="servMetadata" type="a{sv}" direction="out"/>
+    </signal>
+    <method name="GetAboutData">
+      <arg name="languageTag" type="s" direction="in"/>
+      <arg name="aboutData" type="a{sv}" direction="out"/>
+    </method>
+    <method name="GetObjectDescription">
+      <arg name="Control" type="(oas)" direction="out"/>
+    </method>
+    <property name="Version" type="q" access="read"/>
+  </interface>
+  <interface name="org.freedesktop.DBus.Introspectable">
+    <method name="Introspect">
+      <arg name="data" type="s" direction="out"/>
+    </method>
+  </interface>
+</node>

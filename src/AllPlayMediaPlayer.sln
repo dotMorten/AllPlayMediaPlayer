@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25401.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllPlayMediaPlayer", "AllPlayMediaPlayer\AllPlayMediaPlayer.csproj", "{C78A8520-7237-40E5-BCED-A9F935C1194C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "net.allplay", "net.allplay\net.allplay.vcxproj", "{6CD9FC7A-266D-40A9-B2B8-56DE4BF504A2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Introspection", "Introspection", "{F5208241-9BC8-4508-92B6-69A334E89753}"
+	ProjectSection(SolutionItems) = preProject
+		Introspection\net.allplay.MCU.xml = Introspection\net.allplay.MCU.xml
+		Introspection\net.allplay.MediaPlayer.xml = Introspection\net.allplay.MediaPlayer.xml
+		Introspection\net.allplay.ZoneManager.xml = Introspection\net.allplay.ZoneManager.xml
+		Introspection\org.alljoyn.Control.Volume.xml = Introspection\org.alljoyn.Control.Volume.xml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM = Debug|ARM
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|ARM = Release|ARM
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C78A8520-7237-40E5-BCED-A9F935C1194C}.Debug|ARM.ActiveCfg = Debug|ARM
+		{C78A8520-7237-40E5-BCED-A9F935C1194C}.Debug|ARM.Build.0 = Debug|ARM
+		{C78A8520-7237-40E5-BCED-A9F935C1194C}.Debug|ARM.Deploy.0 = Debug|ARM
+		{C78A8520-7237-40E5-BCED-A9F935C1194C}.Debug|x64.ActiveCfg = Debug|x64
+		{C78A8520-7237-40E5-BCED-A9F935C1194C}.Debug|x64.Build.0 = Debug|x64
+		{C78A8520-7237-40E5-BCED-A9F935C1194C}.Debug|x64.Deploy.0 = Debug|x64
+		{C78A8520-7237-40E5-BCED-A9F935C1194C}.Debug|x86.ActiveCfg = Debug|x86
+		{C78A8520-7237-40E5-BCED-A9F935C1194C}.Debug|x86.Build.0 = Debug|x86
+		{C78A8520-7237-40E5-BCED-A9F935C1194C}.Debug|x86.Deploy.0 = Debug|x86
+		{C78A8520-7237-40E5-BCED-A9F935C1194C}.Release|ARM.ActiveCfg = Release|ARM
+		{C78A8520-7237-40E5-BCED-A9F935C1194C}.Release|ARM.Build.0 = Release|ARM
+		{C78A8520-7237-40E5-BCED-A9F935C1194C}.Release|ARM.Deploy.0 = Release|ARM
+		{C78A8520-7237-40E5-BCED-A9F935C1194C}.Release|x64.ActiveCfg = Release|x64
+		{C78A8520-7237-40E5-BCED-A9F935C1194C}.Release|x64.Build.0 = Release|x64
+		{C78A8520-7237-40E5-BCED-A9F935C1194C}.Release|x64.Deploy.0 = Release|x64
+		{C78A8520-7237-40E5-BCED-A9F935C1194C}.Release|x86.ActiveCfg = Release|x86
+		{C78A8520-7237-40E5-BCED-A9F935C1194C}.Release|x86.Build.0 = Release|x86
+		{C78A8520-7237-40E5-BCED-A9F935C1194C}.Release|x86.Deploy.0 = Release|x86
+		{6CD9FC7A-266D-40A9-B2B8-56DE4BF504A2}.Debug|ARM.ActiveCfg = Debug|ARM
+		{6CD9FC7A-266D-40A9-B2B8-56DE4BF504A2}.Debug|ARM.Build.0 = Debug|ARM
+		{6CD9FC7A-266D-40A9-B2B8-56DE4BF504A2}.Debug|x64.ActiveCfg = Debug|x64
+		{6CD9FC7A-266D-40A9-B2B8-56DE4BF504A2}.Debug|x64.Build.0 = Debug|x64
+		{6CD9FC7A-266D-40A9-B2B8-56DE4BF504A2}.Debug|x86.ActiveCfg = Debug|Win32
+		{6CD9FC7A-266D-40A9-B2B8-56DE4BF504A2}.Debug|x86.Build.0 = Debug|Win32
+		{6CD9FC7A-266D-40A9-B2B8-56DE4BF504A2}.Release|ARM.ActiveCfg = Release|ARM
+		{6CD9FC7A-266D-40A9-B2B8-56DE4BF504A2}.Release|ARM.Build.0 = Release|ARM
+		{6CD9FC7A-266D-40A9-B2B8-56DE4BF504A2}.Release|x64.ActiveCfg = Release|x64
+		{6CD9FC7A-266D-40A9-B2B8-56DE4BF504A2}.Release|x64.Build.0 = Release|x64
+		{6CD9FC7A-266D-40A9-B2B8-56DE4BF504A2}.Release|x86.ActiveCfg = Release|Win32
+		{6CD9FC7A-266D-40A9-B2B8-56DE4BF504A2}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
