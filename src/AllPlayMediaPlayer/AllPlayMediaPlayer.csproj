@@ -132,7 +132,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Introspection\net.allplay\net.allplay.vcxproj">
+    <ProjectReference Include="..\net.allplay\net.allplay.vcxproj">
       <Project>{6cd9fc7a-266d-40a9-b2b8-56de4bf504a2}</Project>
       <Name>net.allplay</Name>
     </ProjectReference>
