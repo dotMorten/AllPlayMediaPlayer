@@ -499,6 +499,71 @@ private:
     MediaPlayerStopResult^ m_result;
 };
 
+public ref class MediaPlayerUpdatePlaylistCalledEventArgs sealed
+{
+public:
+	MediaPlayerUpdatePlaylistCalledEventArgs(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info, _In_  Windows::Foundation::Collections::IVector<MediaItem^>^ playlistItems, _In_ int32 index, _In_ Platform::String^ controllerType, _In_ Platform::String^ playlistUserData);
+
+	property Windows::Devices::AllJoyn::AllJoynMessageInfo^ MessageInfo
+	{
+		Windows::Devices::AllJoyn::AllJoynMessageInfo^ get() { return m_messageInfo; }
+	}
+
+	property MediaPlayerUpdatePlaylistResult^ Result
+	{
+		MediaPlayerUpdatePlaylistResult^ get() { return m_result; }
+		void set(_In_ MediaPlayerUpdatePlaylistResult^ value) { m_result = value; }
+	}
+
+	property Windows::Foundation::Collections::IVector<MediaItem^>^ PlaylistItems
+	{
+		Windows::Foundation::Collections::IVector<MediaItem^>^ get() { return m_interfaceMemberPlaylistItems; }
+	}
+
+	property int32 Index
+	{
+		int32 get() { return m_interfaceMemberIndex; }
+	}
+
+	property Platform::String^ ControllerType
+	{
+		Platform::String^ get() { return m_interfaceMemberControllerType; }
+	}
+
+	property Platform::String^ PlaylistUserData
+	{
+		Platform::String^ get() { return m_interfaceMemberPlaylistUserData; }
+	}
+
+	Windows::Foundation::Deferral^ GetDeferral();
+
+	static Windows::Foundation::IAsyncOperation<MediaPlayerUpdatePlaylistResult^>^ GetResultAsync(MediaPlayerUpdatePlaylistCalledEventArgs^ args)
+	{
+		args->InvokeAllFinished();
+		auto t = concurrency::create_task(args->m_tce);
+		return concurrency::create_async([t]() -> concurrency::task<MediaPlayerUpdatePlaylistResult^>
+		{
+			return t;
+		});
+	}
+
+private:
+	void Complete();
+	void InvokeAllFinished();
+	void InvokeCompleteHandler();
+
+	bool m_raised;
+	int m_completionsRequired;
+	concurrency::task_completion_event<MediaPlayerUpdatePlaylistResult^> m_tce;
+	std::mutex m_lock;
+	Windows::Devices::AllJoyn::AllJoynMessageInfo^ m_messageInfo;
+	MediaPlayerUpdatePlaylistResult^ m_result;
+	int32 m_interfaceMemberIndex;
+	Platform::String^ m_interfaceMemberControllerType;
+	Platform::String^ m_interfaceMemberPlaylistUserData;
+	Windows::Foundation::Collections::IVector<MediaItem^>^ m_interfaceMemberPlaylistItems;
+};
+
 // Readable Properties
 public ref class MediaPlayerGetEnabledControlsRequestedEventArgs sealed
 {

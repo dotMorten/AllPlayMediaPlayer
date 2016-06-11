@@ -452,6 +452,38 @@ private:
     int32 m_status;
 };
 
+public ref class MediaPlayerUpdatePlaylistResult sealed
+{
+public:
+	property int32 Status
+	{
+		int32 get() { return m_status; }
+	internal:
+		void set(_In_ int32 value) { m_status = value; }
+	}
+
+
+	static MediaPlayerUpdatePlaylistResult^ CreateSuccessResult()
+	{
+		auto result = ref new MediaPlayerUpdatePlaylistResult();
+		result->Status = Windows::Devices::AllJoyn::AllJoynStatus::Ok;
+		result->m_creationContext = Concurrency::task_continuation_context::use_current();
+		return result;
+	}
+
+	static MediaPlayerUpdatePlaylistResult^ CreateFailureResult(_In_ int32 status)
+	{
+		auto result = ref new MediaPlayerUpdatePlaylistResult();
+		result->Status = status;
+		return result;
+	}
+internal:
+	Concurrency::task_continuation_context m_creationContext = Concurrency::task_continuation_context::use_default();
+
+private:
+	int32 m_status;
+};
+
 public ref class MediaPlayerJoinSessionResult sealed
 {
 public:

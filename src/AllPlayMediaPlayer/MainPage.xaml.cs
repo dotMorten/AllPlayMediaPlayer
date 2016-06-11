@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Media;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -26,8 +27,27 @@ namespace AllPlayMediaPlayer
         public MainPage()
         {
             this.InitializeComponent();
-            s = new AllPlay.Service();
+            //mediaElement.TransportControls = controls;
+            s = new AllPlay.Service(mediaElement);
             s.Start();
+
+            var systemMediaControls = SystemMediaTransportControls.GetForCurrentView();
+            //mediaElement.TransportControls = systemMediaControls;
+            systemMediaControls.ButtonPressed += SystemControls_ButtonPressed;
+        }
+
+        private void SystemControls_ButtonPressed(SystemMediaTransportControls sender, SystemMediaTransportControlsButtonPressedEventArgs args)
+        {
+           switch(args.Button)
+            {
+                case SystemMediaTransportControlsButton.Next:
+                    s.Playlist.MoveNext();
+                    break;
+                case SystemMediaTransportControlsButton.Previous:
+                    s.Playlist.MovePrevious();
+                    break;
+                default: break;
+            }
         }
     }
 }

@@ -864,6 +864,87 @@ void MediaPlayerStopCalledEventArgs::InvokeCompleteHandler()
     }
 }
 
+
+MediaPlayerUpdatePlaylistCalledEventArgs::MediaPlayerUpdatePlaylistCalledEventArgs(
+	_In_ AllJoynMessageInfo^ info,
+	_In_  Windows::Foundation::Collections::IVector<MediaItem^>^ playlistItems, _In_ int32 index, _In_ Platform::String^ controllerType, _In_ Platform::String^ playlistUserData)
+	: m_raised(false),
+	m_completionsRequired(0),
+	m_messageInfo(info),
+	m_interfaceMemberPlaylistItems(playlistItems),
+	m_interfaceMemberIndex(index),
+	m_interfaceMemberControllerType(controllerType),
+	m_interfaceMemberPlaylistUserData(playlistUserData)
+{
+	m_result = MediaPlayerUpdatePlaylistResult::CreateFailureResult(ER_NOT_IMPLEMENTED);
+}
+
+Deferral^ MediaPlayerUpdatePlaylistCalledEventArgs::GetDeferral()
+{
+	std::lock_guard<std::mutex> lockGuard(m_lock);
+	if (m_raised)
+	{
+		// Cannot ask for a deferral after the event handler has returned.
+		throw Exception::CreateException(E_ILLEGAL_METHOD_CALL);
+	}
+
+	m_completionsRequired++;
+	auto handler = ref new DeferralCompletedHandler(this, &MediaPlayerUpdatePlaylistCalledEventArgs::Complete);
+	return ref new Deferral(handler);
+}
+
+void MediaPlayerUpdatePlaylistCalledEventArgs::InvokeAllFinished()
+{
+	bool invokeNeeded;
+
+	// We need to hold a lock while modifying private state, but release it before invoking a completion handler.
+	{
+		std::lock_guard<std::mutex> lockGuard(m_lock);
+		m_raised = true;
+		invokeNeeded = (m_completionsRequired == 0);
+	}
+
+	if (invokeNeeded)
+	{
+		InvokeCompleteHandler();
+	}
+}
+
+void MediaPlayerUpdatePlaylistCalledEventArgs::Complete()
+{
+	bool invokeNeeded;
+
+	// We need to hold a lock while modifying private state, but release it before invoking a completion handler.
+	{
+		std::lock_guard<std::mutex> lockGuard(m_lock);
+		if (m_completionsRequired == 0)
+		{
+			// This should never happen since Complete() should only be called by Windows.Foundation.Deferral
+			// which will only invoke our completion handler once.
+			throw Exception::CreateException(E_ILLEGAL_METHOD_CALL);
+		}
+		m_completionsRequired--;
+		invokeNeeded = (m_raised && (m_completionsRequired == 0));
+	}
+
+	if (invokeNeeded)
+	{
+		InvokeCompleteHandler();
+	}
+}
+
+void MediaPlayerUpdatePlaylistCalledEventArgs::InvokeCompleteHandler()
+{
+	if (m_result->Status == ER_NOT_IMPLEMENTED)
+	{
+		throw Exception::CreateException(E_NOTIMPL, "No handlers are registered for UpdatePlaylistCalled.");
+	}
+	else
+	{
+		m_tce.set(m_result);
+	}
+}
+
 // Readable Properties
 MediaPlayerGetEnabledControlsRequestedEventArgs::MediaPlayerGetEnabledControlsRequestedEventArgs(
     _In_ AllJoynMessageInfo^ info)

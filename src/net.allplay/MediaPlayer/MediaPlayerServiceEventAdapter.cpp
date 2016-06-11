@@ -111,6 +111,13 @@ IAsyncOperation<MediaPlayerStopResult^>^ MediaPlayerServiceEventAdapter::StopAsy
     return MediaPlayerStopCalledEventArgs::GetResultAsync(args);
 }
 
+IAsyncOperation<MediaPlayerUpdatePlaylistResult^>^ MediaPlayerServiceEventAdapter::UpdatePlaylistAsync(_In_ AllJoynMessageInfo^ info, _In_  Windows::Foundation::Collections::IVector<MediaItem^>^ playlistItems, _In_ int32 index, _In_ Platform::String^ controllerType, _In_ Platform::String^ playlistUserData)
+{
+	auto args = ref new MediaPlayerUpdatePlaylistCalledEventArgs(info, playlistItems, index, controllerType, playlistUserData);
+	UpdatePlaylistCalled(this, args);
+	return MediaPlayerUpdatePlaylistCalledEventArgs::GetResultAsync(args);
+}
+
 // Property Reads
 IAsyncOperation<MediaPlayerGetEnabledControlsResult^>^ MediaPlayerServiceEventAdapter::GetEnabledControlsAsync(_In_ AllJoynMessageInfo^ info)
 {

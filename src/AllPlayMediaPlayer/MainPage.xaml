@@ -9,5 +9,12 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <MediaElement x:Name="mediaElement" AreTransportControlsEnabled="True" />
+
+        <!--<MediaTransportControls Grid.Row="1" x:Name="controls" />-->
     </Grid>
 </Page>

@@ -224,7 +224,8 @@ private:
     static void CallResumeHandler(_Inout_ alljoyn_busobject busObject, _In_ alljoyn_message message);
     static void CallSetPositionHandler(_Inout_ alljoyn_busobject busObject, _In_ alljoyn_message message);
     static void CallStopHandler(_Inout_ alljoyn_busobject busObject, _In_ alljoyn_message message);
-    static void CallEnabledControlsChangedSignalHandler(_In_ const alljoyn_interfacedescription_member* member, _In_ alljoyn_message message);
+	static void CallUpdatePlaylistHandler(_Inout_ alljoyn_busobject busObject, _In_ alljoyn_message message);
+	static void CallEnabledControlsChangedSignalHandler(_In_ const alljoyn_interfacedescription_member* member, _In_ alljoyn_message message);
     static void CallEndOfPlaybackSignalHandler(_In_ const alljoyn_interfacedescription_member* member, _In_ alljoyn_message message);
     static void CallInterruptibleChangedSignalHandler(_In_ const alljoyn_interfacedescription_member* member, _In_ alljoyn_message message);
     static void CallLoopModeChangedSignalHandler(_In_ const alljoyn_interfacedescription_member* member, _In_ alljoyn_message message);

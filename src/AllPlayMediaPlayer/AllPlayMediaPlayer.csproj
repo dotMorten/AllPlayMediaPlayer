@@ -92,11 +92,13 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AllPlay\Playlist.cs" />
     <Compile Include="AllPlay\Service.ZoneManager.cs" />
     <Compile Include="AllPlay\Service.MediaPlayer.cs" />
     <Compile Include="AllPlay\Service.MCU.cs" />
     <Compile Include="AllPlay\Service.Volume.cs" />
     <Compile Include="AllPlay\Service.cs" />
+    <Compile Include="AllPlay\Status.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>

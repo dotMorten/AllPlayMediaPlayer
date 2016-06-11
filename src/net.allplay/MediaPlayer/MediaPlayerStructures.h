@@ -374,9 +374,10 @@ internal:
         Windows::Foundation::Collections::IMap<Platform::String^,Platform::Object^>^ value10;
         RETURN_IF_QSTATUS_ERROR(GetAllJoynMessageArg(argument10, "a{sv}", &value10));
         (*value)->MediumDesc = value10;
-        Platform::Object^ value11;
-        RETURN_IF_QSTATUS_ERROR(GetAllJoynMessageArg(argument11, "v", &value11));
-        (*value)->UserData = value11;
+        // TODO: Currently not supported
+		// Platform::Object^ value11;
+        // RETURN_IF_QSTATUS_ERROR(GetAllJoynMessageArg(argument11, "v", &value11));
+        // (*value)->UserData = value11;
         
         return ER_OK;
     }

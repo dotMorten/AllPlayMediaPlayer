@@ -699,6 +699,54 @@ void MediaPlayerProducer::CallStopHandler(_Inout_ alljoyn_busobject busObject, _
     }
 }
 
+void MediaPlayerProducer::CallUpdatePlaylistHandler(_Inout_ alljoyn_busobject busObject, _In_ alljoyn_message message)
+{
+	auto source = SourceObjects.find(busObject);
+	if (source == SourceObjects.end())
+	{
+		return;
+	}
+
+	MediaPlayerProducer^ producer = source->second->Resolve<MediaPlayerProducer>();
+	if (producer->Service != nullptr)
+	{
+		AllJoynMessageInfo^ callInfo = ref new AllJoynMessageInfo(AllJoynHelpers::MultibyteToPlatformString(alljoyn_message_getsender(message)));
+		Windows::Foundation::Collections::IVector<MediaItem^>^ playlistItems;
+		(void)TypeConversionHelpers::GetAllJoynMessageArg(alljoyn_message_getarg(message, 0), "a(ssssxsssa{ss}a{sv}v)", &playlistItems);
+		int32 index;
+		(void)TypeConversionHelpers::GetAllJoynMessageArg(alljoyn_message_getarg(message, 1), "i", &index);
+		Platform::String^ controllerType;
+		(void)TypeConversionHelpers::GetAllJoynMessageArg(alljoyn_message_getarg(message, 2), "s", &controllerType);
+		Platform::String^ playlistUserData;
+		(void)TypeConversionHelpers::GetAllJoynMessageArg(alljoyn_message_getarg(message, 3), "s", &playlistUserData);
+
+		MediaPlayerUpdatePlaylistResult^ result = create_task(producer->Service->UpdatePlaylistAsync(callInfo, playlistItems, index, controllerType, playlistUserData)).get();
+		create_task([]() {}).then([=]
+		{
+			int32 status;
+
+			if (nullptr == result)
+			{
+				alljoyn_busobject_methodreply_status(busObject, message, ER_BUS_NO_LISTENER);
+				return;
+			}
+
+			status = result->Status;
+			if (AllJoynStatus::Ok != status)
+			{
+				alljoyn_busobject_methodreply_status(busObject, message, static_cast<QStatus>(status));
+				return;
+			}
+
+			size_t argCount = 0;
+			alljoyn_msgarg outputs = alljoyn_msgarg_array_create(argCount);
+
+			alljoyn_busobject_methodreply_args(busObject, message, outputs, argCount);
+			alljoyn_msgarg_destroy(outputs);
+		}, result->m_creationContext).wait();
+	}
+}
+
 void MediaPlayerProducer::CallEnabledControlsChangedSignalHandler(_In_ const alljoyn_interfacedescription_member* member, _In_ alljoyn_message message)
 {
     auto source = SourceInterfaces.find(member->iface);
@@ -1170,6 +1218,16 @@ void MediaPlayerProducer::Start(alljoyn_busobject bus)
         StopInternal(result);
         return;
     }
+
+	result = AddMethodHandler(
+		interfaceDescription,
+		"UpdatePlaylist",
+		[](alljoyn_busobject busObject, const alljoyn_interfacedescription_member* member, alljoyn_message message) { UNREFERENCED_PARAMETER(member); CallUpdatePlaylistHandler(busObject, message); });
+	if (result != ER_OK)
+	{
+		StopInternal(result);
+		return;
+	}
 
     result = AddSignalHandler(
         AllJoynHelpers::GetInternalBusAttachment(m_busAttachment),

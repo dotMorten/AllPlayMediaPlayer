@@ -59,7 +59,10 @@ public:
     // Implement this function to handle calls to the Stop method.
     Windows::Foundation::IAsyncOperation<MediaPlayerStopResult^>^ StopAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info );
 
-    // Implement this function to handle requests for the value of the EnabledControls property.
+	// Implement this function to handle calls to the UpdatePlaylist method.
+	Windows::Foundation::IAsyncOperation<MediaPlayerUpdatePlaylistResult^>^ UpdatePlaylistAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info, _In_  Windows::Foundation::Collections::IVector<MediaItem^>^ playlistItems, _In_ int32 index, _In_ Platform::String^ controllerType,  _In_ Platform::String^ playlistUserData);
+	
+	// Implement this function to handle requests for the value of the EnabledControls property.
     //
     // Currently, info will always be null, because no information is available about the requestor.
     Windows::Foundation::IAsyncOperation<MediaPlayerGetEnabledControlsResult^>^ GetEnabledControlsAsync(Windows::Devices::AllJoyn::AllJoynMessageInfo^ info);

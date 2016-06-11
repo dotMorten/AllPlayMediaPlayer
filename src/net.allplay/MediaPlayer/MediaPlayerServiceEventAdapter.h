@@ -260,6 +260,27 @@ public:
             _StopCalled(sender, args);
         } 
     }
+	
+	event Windows::Foundation::TypedEventHandler<MediaPlayerServiceEventAdapter^, MediaPlayerUpdatePlaylistCalledEventArgs^>^ UpdatePlaylistCalled
+	{
+		Windows::Foundation::EventRegistrationToken add(Windows::Foundation::TypedEventHandler<MediaPlayerServiceEventAdapter^, MediaPlayerUpdatePlaylistCalledEventArgs^>^ handler)
+		{
+			return _UpdatePlaylistCalled += ref new Windows::Foundation::EventHandler<Platform::Object^>
+				([handler](Platform::Object^ sender, Platform::Object^ args)
+			{
+				handler->Invoke(safe_cast<MediaPlayerServiceEventAdapter^>(sender), safe_cast<MediaPlayerUpdatePlaylistCalledEventArgs^>(args));
+			}, Platform::CallbackContext::Same);
+		}
+		void remove(Windows::Foundation::EventRegistrationToken token)
+		{
+			_UpdatePlaylistCalled -= token;
+		}
+	internal:
+		void raise(MediaPlayerServiceEventAdapter^ sender, MediaPlayerUpdatePlaylistCalledEventArgs^ args)
+		{
+			_UpdatePlaylistCalled(sender, args);
+		}
+	}
 
     // Property Read Events
     event Windows::Foundation::TypedEventHandler<MediaPlayerServiceEventAdapter^, MediaPlayerGetEnabledControlsRequestedEventArgs^>^ GetEnabledControlsRequested 
@@ -443,6 +464,7 @@ public:
     virtual Windows::Foundation::IAsyncOperation<MediaPlayerResumeResult^>^ ResumeAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info);
     virtual Windows::Foundation::IAsyncOperation<MediaPlayerSetPositionResult^>^ SetPositionAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info, _In_ int64 interfaceMemberPositionMsecs);
     virtual Windows::Foundation::IAsyncOperation<MediaPlayerStopResult^>^ StopAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info);
+	virtual Windows::Foundation::IAsyncOperation<MediaPlayerUpdatePlaylistResult^>^ UpdatePlaylistAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info, _In_  Windows::Foundation::Collections::IVector<MediaItem^>^ playlistItems, _In_ int32 index, _In_ Platform::String^ controllerType, _In_ Platform::String^ playlistUserData);
 
     virtual Windows::Foundation::IAsyncOperation<MediaPlayerGetEnabledControlsResult^>^ GetEnabledControlsAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info);
     virtual Windows::Foundation::IAsyncOperation<MediaPlayerGetInterruptibleResult^>^ GetInterruptibleAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info);
@@ -466,7 +488,8 @@ private:
     event Windows::Foundation::EventHandler<Platform::Object^>^ _ResumeCalled;
     event Windows::Foundation::EventHandler<Platform::Object^>^ _SetPositionCalled;
     event Windows::Foundation::EventHandler<Platform::Object^>^ _StopCalled;
-    event Windows::Foundation::EventHandler<Platform::Object^>^ _GetEnabledControlsRequested;
+	event Windows::Foundation::EventHandler<Platform::Object^>^ _UpdatePlaylistCalled;
+	event Windows::Foundation::EventHandler<Platform::Object^>^ _GetEnabledControlsRequested;
     event Windows::Foundation::EventHandler<Platform::Object^>^ _GetInterruptibleRequested;
     event Windows::Foundation::EventHandler<Platform::Object^>^ _GetLoopModeRequested;
     event Windows::Foundation::EventHandler<Platform::Object^>^ _GetPlayStateRequested;
