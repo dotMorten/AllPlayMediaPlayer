@@ -11,7 +11,7 @@ Read more about AllPlay here: https://www.qualcomm.com/products/allplay
 #### Android
 - [AllPlay Radio](https://play.google.com/store/apps/details?id=com.qualcomm.qce.allplay.radio)
 - [AllPlay JukeBox](https://play.google.com/store/apps/details?id=com.qualcomm.qce.allplay.jukebox)
-- [Panasonic Music Streaming])https://play.google.com/store/apps/details?id=com.panasonic.avc.diga.wwmusicstreaming)
+- [Panasonic Music Streaming](https://play.google.com/store/apps/details?id=com.panasonic.avc.diga.wwmusicstreaming)
 - [Spotify Music](https://play.google.com/store/apps/details?id=com.spotify.music)
 
 #### iOS
