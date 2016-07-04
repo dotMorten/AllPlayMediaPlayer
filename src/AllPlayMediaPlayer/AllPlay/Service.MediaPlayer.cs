@@ -27,14 +27,28 @@ namespace AllPlayMediaPlayer.AllPlay
             slaveNames.Add("Slave1", 1234);
             slaveNames.Add("Slave2", 1235);
             return Task.FromResult(MediaPlayerGetPlayerInfoResult.CreateSuccessResult(
-                "MediaPlayer",
+                 $"{GetHostName()} Speaker",
                 // TODO: If running headless, only support audio
                 new List<string> { "audio/mpeg", "video/mp4", "video/mpeg", "image/jpeg", "supportsPartyMode" },
                 100,
                 new MediaPlayerZoneInfo() { Value1 = GetUniqueDeviceId(), Value2 = 0, Value3 = slaveNames }
                 )).AsAsyncOperation();
         }
+        private static string GetHostName()
+        {
+            var hostNamesList = Windows.Networking.Connectivity.NetworkInformation
+                .GetHostNames();
 
+            foreach (var entry in hostNamesList)
+            {
+                if (entry.Type == Windows.Networking.HostNameType.DomainName)
+                {
+                    return entry.CanonicalName;
+                }
+            }
+
+            return null;
+        }
         private static string GetUniqueDeviceId()
         {
             var container = Windows.Storage.ApplicationData.Current.LocalSettings.CreateContainer("MediaPlayer", Windows.Storage.ApplicationDataCreateDisposition.Always);
