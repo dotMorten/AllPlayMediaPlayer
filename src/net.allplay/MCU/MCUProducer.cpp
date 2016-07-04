@@ -39,7 +39,7 @@ MCUProducer::MCUProducer(AllJoynBusAttachment^ busAttachment)
     m_sessionId(0)
 {
     m_weak = new WeakReference(this);
-    ServiceObjectPath = ref new String(L"/net/allplay/mediaplayer");
+    ServiceObjectPath = ref new String(L"/net/allplay/MediaPlayer");
     m_signals = ref new MCUSignals();
     m_busAttachmentStateChangedToken.Value = 0;
 }

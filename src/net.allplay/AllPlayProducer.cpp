@@ -20,7 +20,7 @@ AllPlayProducer::AllPlayProducer(AllJoynBusAttachment^ busAttachment)
     m_sessionId(0)
 {
     m_weak = new WeakReference(this);
-    ServiceObjectPath = ref new String(L"/net/allplay/mediaplayer");
+    ServiceObjectPath = ref new String(L"/net/allplay/MediaPlayer");
     m_busAttachmentStateChangedToken.Value = 0;
 	m_mediaPlayerProducer = ref new MediaPlayerProducer(busAttachment);
 	m_volumeProducer = ref new VolumeProducer(busAttachment);
