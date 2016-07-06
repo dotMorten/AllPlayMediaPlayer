@@ -26,7 +26,6 @@ namespace AllPlayMediaPlayer.AllPlay
 
         public Service(MediaElement mediaElement)
         {
-            Playlist.LoadFromCache();
             //player.Source = playlist;
 
             // Initialize the alljoyn bus
@@ -62,25 +61,25 @@ namespace AllPlayMediaPlayer.AllPlay
             Playlist.CurrentItemChanged += Playlist_CurrentItemChanged;
             Playlist.ShuffleModeChanged += Playlist_ShuffleModeChanged;
             Playlist.RepeatModeChanged += Playlist_RepeatModeChanged;
+
+            Playlist.LoadFromCache();
 #if DEBUG
-            LoadSamplePlaylist();
+            if (Playlist.Items.Count == 0)
+                LoadSamplePlaylist();
 #endif
         }
 
 #if DEBUG
         private void LoadSamplePlaylist()
         {
-            if (Playlist.Items.Count == 0)
+            var mediaItems = new List<MediaItem>();
+            for (int i = 0; i < 20; i++)
             {
-                var mediaItems = new List<MediaItem>();
-                for (int i = 0; i < 20; i++)
-                {
-                    var item = CreateMockMediaItem(i);
-                    mediaItems.Add(item);
-                    //playlist.Items.Add(new Windows.Media.Playback.MediaPlaybackItem(Windows.Media.Core.MediaSource.CreateFromUri(new Uri(item.Url))));
-                }
-                Playlist.UpdatePlaylist(mediaItems, 0);
+                var item = CreateMockMediaItem(i);
+                mediaItems.Add(item);
+                //playlist.Items.Add(new Windows.Media.Playback.MediaPlaybackItem(Windows.Media.Core.MediaSource.CreateFromUri(new Uri(item.Url))));
             }
+            Playlist.UpdatePlaylist(mediaItems, 0);
         }
 
         private static MediaItem CreateMockMediaItem(int id)

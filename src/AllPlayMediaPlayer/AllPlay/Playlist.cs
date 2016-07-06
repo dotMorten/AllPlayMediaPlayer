@@ -50,6 +50,8 @@ namespace AllPlayMediaPlayer.AllPlay
                 var item = (string)settings.Values[i.ToString()];
                 Items.Add(DeserializeMediaItem(item));
             }
+            if(Items.Count != 0)
+                RaiseCurrentItemChanged();
         }
         public void Save()
         {
