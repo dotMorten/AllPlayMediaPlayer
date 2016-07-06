@@ -19,6 +19,7 @@ Read more about AllPlay here: https://www.qualcomm.com/products/allplay
 - [AllPlay JukeBox](https://itunes.apple.com/us/app/allplay-jukebox/id904386956?mt=8)
 - [Panasonic Music Streaming](https://fnd.io/#/us/ios-universal-app/600250238-panasonic-music-streaming-by-panasonic-co)
 - [Spotify Music](https://fnd.io/#/us/ios-universal-app/324684580-spotify-music-by-spotify-ltd)
+- [Monster Soundstage](https://itunes.apple.com/us/app/monster-soundstage/id928625334?mt=8)
 
 #### Windows
 - [AllPlay Device Dashboard](https://www.microsoft.com/en-us/store/apps/alljoyn-device-dashboard/9nblggh4wtcv)
