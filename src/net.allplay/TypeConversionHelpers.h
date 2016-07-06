@@ -165,8 +165,13 @@ internal:
         {
             RETURN_IF_QSTATUS_ERROR(SetAllJoynMessageArg(alljoyn_msgarg_array_element(arrayArgument, i), elementSignature, value->GetAt(static_cast<unsigned int>(i))));
         }
-
-        QStatus status = alljoyn_msgarg_set_and_stabilize(argument, "a*", (size_t)value->Size, arrayArgument);
+		QStatus status = ER_OK;
+		if (value->Size > 0) {
+			status = alljoyn_msgarg_set_and_stabilize(argument, "a*", (size_t)value->Size, arrayArgument);
+		}
+		else {
+			status = alljoyn_msgarg_set_and_stabilize(argument, signature, (size_t)value->Size, arrayArgument);
+		}
         alljoyn_msgarg_destroy(arrayArgument);
         return static_cast<int32>(status);
     }
