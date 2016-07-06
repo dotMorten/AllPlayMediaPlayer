@@ -48,16 +48,16 @@ IAsyncOperation<MCUGetCurrentItemUrlResult^>^ MCUServiceEventAdapter::GetCurrent
     return MCUGetCurrentItemUrlCalledEventArgs::GetResultAsync(args);
 }
 
-IAsyncOperation<MCUPlayItemResult^>^ MCUServiceEventAdapter::PlayItemAsync(_In_ AllJoynMessageInfo^ info, _In_ Platform::String^ interfaceMemberUrl, _In_ Platform::String^ interfaceMemberTitle, _In_ Platform::String^ interfaceMemberArtist, _In_ Platform::String^ interfaceMemberThumbnailUrl, _In_ int64 interfaceMemberDuration, _In_ Platform::String^ interfaceMemberAlbum, _In_ Platform::String^ interfaceMemberGenre)
+IAsyncOperation<MCUPlayItemResult^>^ MCUServiceEventAdapter::PlayItemAsync(_In_ AllJoynMessageInfo^ info, _In_ Platform::String^ url, _In_ Platform::String^ title, _In_ Platform::String^ artist, _In_ Platform::String^ thumbnailUrl, _In_ int64 duration, _In_ Platform::String^ album, _In_ Platform::String^ genre)
 {
-    auto args = ref new MCUPlayItemCalledEventArgs(info, interfaceMemberUrl, interfaceMemberTitle, interfaceMemberArtist, interfaceMemberThumbnailUrl, interfaceMemberDuration, interfaceMemberAlbum, interfaceMemberGenre);
+    auto args = ref new MCUPlayItemCalledEventArgs(info, url, title, artist, thumbnailUrl, duration, album, genre);
     PlayItemCalled(this, args);
     return MCUPlayItemCalledEventArgs::GetResultAsync(args);
 }
 
-IAsyncOperation<MCUSetExternalSourceResult^>^ MCUServiceEventAdapter::SetExternalSourceAsync(_In_ AllJoynMessageInfo^ info, _In_ Platform::String^ interfaceMemberName, _In_ bool interfaceMemberInterruptible, _In_ bool interfaceMemberVolumeCtrlEnabled)
+IAsyncOperation<MCUSetExternalSourceResult^>^ MCUServiceEventAdapter::SetExternalSourceAsync(_In_ AllJoynMessageInfo^ info, _In_ Platform::String^ name, _In_ bool interruptible, _In_ bool volumeCtrlEnabled)
 {
-    auto args = ref new MCUSetExternalSourceCalledEventArgs(info, interfaceMemberName, interfaceMemberInterruptible, interfaceMemberVolumeCtrlEnabled);
+    auto args = ref new MCUSetExternalSourceCalledEventArgs(info, name, interruptible, volumeCtrlEnabled);
     SetExternalSourceCalled(this, args);
     return MCUSetExternalSourceCalledEventArgs::GetResultAsync(args);
 }

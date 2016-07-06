@@ -76,9 +76,9 @@ IAsyncOperation<MediaPlayerPauseResult^>^ MediaPlayerServiceEventAdapter::PauseA
     return MediaPlayerPauseCalledEventArgs::GetResultAsync(args);
 }
 
-IAsyncOperation<MediaPlayerPlayResult^>^ MediaPlayerServiceEventAdapter::PlayAsync(_In_ AllJoynMessageInfo^ info, _In_ int32 interfaceMemberItemIndex, _In_ int64 interfaceMemberStartPositionMsecs, _In_ bool interfaceMemberPauseStateOnly)
+IAsyncOperation<MediaPlayerPlayResult^>^ MediaPlayerServiceEventAdapter::PlayAsync(_In_ AllJoynMessageInfo^ info, _In_ int32 itemIndex, _In_ int64 startPositionMsecs, _In_ bool pauseStateOnly)
 {
-    auto args = ref new MediaPlayerPlayCalledEventArgs(info, interfaceMemberItemIndex, interfaceMemberStartPositionMsecs, interfaceMemberPauseStateOnly);
+    auto args = ref new MediaPlayerPlayCalledEventArgs(info, itemIndex, startPositionMsecs, pauseStateOnly);
     PlayCalled(this, args);
     return MediaPlayerPlayCalledEventArgs::GetResultAsync(args);
 }
@@ -97,9 +97,9 @@ IAsyncOperation<MediaPlayerResumeResult^>^ MediaPlayerServiceEventAdapter::Resum
     return MediaPlayerResumeCalledEventArgs::GetResultAsync(args);
 }
 
-IAsyncOperation<MediaPlayerSetPositionResult^>^ MediaPlayerServiceEventAdapter::SetPositionAsync(_In_ AllJoynMessageInfo^ info, _In_ int64 interfaceMemberPositionMsecs)
+IAsyncOperation<MediaPlayerSetPositionResult^>^ MediaPlayerServiceEventAdapter::SetPositionAsync(_In_ AllJoynMessageInfo^ info, _In_ int64 positionMsecs)
 {
-    auto args = ref new MediaPlayerSetPositionCalledEventArgs(info, interfaceMemberPositionMsecs);
+    auto args = ref new MediaPlayerSetPositionCalledEventArgs(info, positionMsecs);
     SetPositionCalled(this, args);
     return MediaPlayerSetPositionCalledEventArgs::GetResultAsync(args);
 }

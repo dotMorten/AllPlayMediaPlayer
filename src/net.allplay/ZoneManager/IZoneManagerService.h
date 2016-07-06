@@ -27,10 +27,10 @@ public interface class IZoneManagerService
 {
 public:
     // Implement this function to handle calls to the CreateZone method.
-    Windows::Foundation::IAsyncOperation<ZoneManagerCreateZoneResult^>^ CreateZoneAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info , _In_ Windows::Foundation::Collections::IVectorView<Platform::String^>^ interfaceMemberSlaves);
+    Windows::Foundation::IAsyncOperation<ZoneManagerCreateZoneResult^>^ CreateZoneAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info , _In_ Windows::Foundation::Collections::IVectorView<Platform::String^>^ slaves);
 
     // Implement this function to handle calls to the SetZoneLead method.
-    Windows::Foundation::IAsyncOperation<ZoneManagerSetZoneLeadResult^>^ SetZoneLeadAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info , _In_ Platform::String^ interfaceMemberZoneId, _In_ Platform::String^ interfaceMemberTimeServerIp, _In_ uint16 interfaceMemberTimeServerPort);
+    Windows::Foundation::IAsyncOperation<ZoneManagerSetZoneLeadResult^>^ SetZoneLeadAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info , _In_ Platform::String^ zoneId, _In_ Platform::String^ timeServerIp, _In_ uint16 timeServerPort);
 
     // Implement this function to handle requests for the value of the Enabled property.
     //

@@ -34,16 +34,16 @@ using namespace net::allplay::ZoneManager;
 // is handled by returning a null result.
 
 // Methods
-IAsyncOperation<ZoneManagerCreateZoneResult^>^ ZoneManagerServiceEventAdapter::CreateZoneAsync(_In_ AllJoynMessageInfo^ info, _In_ Windows::Foundation::Collections::IVectorView<Platform::String^>^ interfaceMemberSlaves)
+IAsyncOperation<ZoneManagerCreateZoneResult^>^ ZoneManagerServiceEventAdapter::CreateZoneAsync(_In_ AllJoynMessageInfo^ info, _In_ Windows::Foundation::Collections::IVectorView<Platform::String^>^ memberSlaves)
 {
-    auto args = ref new ZoneManagerCreateZoneCalledEventArgs(info, interfaceMemberSlaves);
+    auto args = ref new ZoneManagerCreateZoneCalledEventArgs(info, memberSlaves);
     CreateZoneCalled(this, args);
     return ZoneManagerCreateZoneCalledEventArgs::GetResultAsync(args);
 }
 
-IAsyncOperation<ZoneManagerSetZoneLeadResult^>^ ZoneManagerServiceEventAdapter::SetZoneLeadAsync(_In_ AllJoynMessageInfo^ info, _In_ Platform::String^ interfaceMemberZoneId, _In_ Platform::String^ interfaceMemberTimeServerIp, _In_ uint16 interfaceMemberTimeServerPort)
+IAsyncOperation<ZoneManagerSetZoneLeadResult^>^ ZoneManagerServiceEventAdapter::SetZoneLeadAsync(_In_ AllJoynMessageInfo^ info, _In_ Platform::String^ zoneId, _In_ Platform::String^ timeServerIp, _In_ uint16 timeServerPort)
 {
-    auto args = ref new ZoneManagerSetZoneLeadCalledEventArgs(info, interfaceMemberZoneId, interfaceMemberTimeServerIp, interfaceMemberTimeServerPort);
+    auto args = ref new ZoneManagerSetZoneLeadCalledEventArgs(info, zoneId, timeServerIp, timeServerPort);
     SetZoneLeadCalled(this, args);
     return ZoneManagerSetZoneLeadCalledEventArgs::GetResultAsync(args);
 }

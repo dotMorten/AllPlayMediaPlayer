@@ -117,8 +117,8 @@ public:
 
     // Property Write Events
     // IZoneManagerService Implementation
-    virtual Windows::Foundation::IAsyncOperation<ZoneManagerCreateZoneResult^>^ CreateZoneAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info, _In_ Windows::Foundation::Collections::IVectorView<Platform::String^>^ interfaceMemberSlaves);
-    virtual Windows::Foundation::IAsyncOperation<ZoneManagerSetZoneLeadResult^>^ SetZoneLeadAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info, _In_ Platform::String^ interfaceMemberZoneId, _In_ Platform::String^ interfaceMemberTimeServerIp, _In_ uint16 interfaceMemberTimeServerPort);
+    virtual Windows::Foundation::IAsyncOperation<ZoneManagerCreateZoneResult^>^ CreateZoneAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info, _In_ Windows::Foundation::Collections::IVectorView<Platform::String^>^ slaves);
+    virtual Windows::Foundation::IAsyncOperation<ZoneManagerSetZoneLeadResult^>^ SetZoneLeadAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info, _In_ Platform::String^ zoneId, _In_ Platform::String^ timeServerIp, _In_ uint16 timeServerPort);
 
     virtual Windows::Foundation::IAsyncOperation<ZoneManagerGetEnabledResult^>^ GetEnabledAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info);
     virtual Windows::Foundation::IAsyncOperation<ZoneManagerGetVersionResult^>^ GetVersionAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info);

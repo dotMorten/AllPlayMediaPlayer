@@ -34,16 +34,16 @@ using namespace net::allplay::Control::Volume;
 // is handled by returning a null result.
 
 // Methods
-IAsyncOperation<VolumeAdjustVolumeResult^>^ VolumeServiceEventAdapter::AdjustVolumeAsync(_In_ AllJoynMessageInfo^ info, _In_ int16 interfaceMemberDelta)
+IAsyncOperation<VolumeAdjustVolumeResult^>^ VolumeServiceEventAdapter::AdjustVolumeAsync(_In_ AllJoynMessageInfo^ info, _In_ int16 delta)
 {
-    auto args = ref new VolumeAdjustVolumeCalledEventArgs(info, interfaceMemberDelta);
+    auto args = ref new VolumeAdjustVolumeCalledEventArgs(info, delta);
     AdjustVolumeCalled(this, args);
     return VolumeAdjustVolumeCalledEventArgs::GetResultAsync(args);
 }
 
-IAsyncOperation<VolumeAdjustVolumePercentResult^>^ VolumeServiceEventAdapter::AdjustVolumePercentAsync(_In_ AllJoynMessageInfo^ info, _In_ double interfaceMemberChange)
+IAsyncOperation<VolumeAdjustVolumePercentResult^>^ VolumeServiceEventAdapter::AdjustVolumePercentAsync(_In_ AllJoynMessageInfo^ info, _In_ double change)
 {
-    auto args = ref new VolumeAdjustVolumePercentCalledEventArgs(info, interfaceMemberChange);
+    auto args = ref new VolumeAdjustVolumePercentCalledEventArgs(info, change);
     AdjustVolumePercentCalled(this, args);
     return VolumeAdjustVolumePercentCalledEventArgs::GetResultAsync(args);
 }

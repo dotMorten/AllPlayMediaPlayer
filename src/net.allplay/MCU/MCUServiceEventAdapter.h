@@ -161,8 +161,8 @@ public:
     // IMCUService Implementation
     virtual Windows::Foundation::IAsyncOperation<MCUAdvanceLoopModeResult^>^ AdvanceLoopModeAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info);
     virtual Windows::Foundation::IAsyncOperation<MCUGetCurrentItemUrlResult^>^ GetCurrentItemUrlAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info);
-    virtual Windows::Foundation::IAsyncOperation<MCUPlayItemResult^>^ PlayItemAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info, _In_ Platform::String^ interfaceMemberUrl, _In_ Platform::String^ interfaceMemberTitle, _In_ Platform::String^ interfaceMemberArtist, _In_ Platform::String^ interfaceMemberThumbnailUrl, _In_ int64 interfaceMemberDuration, _In_ Platform::String^ interfaceMemberAlbum, _In_ Platform::String^ interfaceMemberGenre);
-    virtual Windows::Foundation::IAsyncOperation<MCUSetExternalSourceResult^>^ SetExternalSourceAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info, _In_ Platform::String^ interfaceMemberName, _In_ bool interfaceMemberInterruptible, _In_ bool interfaceMemberVolumeCtrlEnabled);
+    virtual Windows::Foundation::IAsyncOperation<MCUPlayItemResult^>^ PlayItemAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info, _In_ Platform::String^ url, _In_ Platform::String^ title, _In_ Platform::String^ artist, _In_ Platform::String^ thumbnailUrl, _In_ int64 duration, _In_ Platform::String^ album, _In_ Platform::String^ genre);
+    virtual Windows::Foundation::IAsyncOperation<MCUSetExternalSourceResult^>^ SetExternalSourceAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info, _In_ Platform::String^ name, _In_ bool interruptible, _In_ bool volumeCtrlEnabled);
     virtual Windows::Foundation::IAsyncOperation<MCUToggleShuffleModeResult^>^ ToggleShuffleModeAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info);
 
     virtual Windows::Foundation::IAsyncOperation<MCUGetVersionResult^>^ GetVersionAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info);

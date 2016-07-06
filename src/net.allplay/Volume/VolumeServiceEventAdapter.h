@@ -222,8 +222,8 @@ public:
     }
 
     // IVolumeService Implementation
-    virtual Windows::Foundation::IAsyncOperation<VolumeAdjustVolumeResult^>^ AdjustVolumeAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info, _In_ int16 interfaceMemberDelta);
-    virtual Windows::Foundation::IAsyncOperation<VolumeAdjustVolumePercentResult^>^ AdjustVolumePercentAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info, _In_ double interfaceMemberChange);
+    virtual Windows::Foundation::IAsyncOperation<VolumeAdjustVolumeResult^>^ AdjustVolumeAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info, _In_ int16 delta);
+    virtual Windows::Foundation::IAsyncOperation<VolumeAdjustVolumePercentResult^>^ AdjustVolumePercentAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info, _In_ double change);
 
     virtual Windows::Foundation::IAsyncOperation<VolumeGetEnabledResult^>^ GetEnabledAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info);
     virtual Windows::Foundation::IAsyncOperation<VolumeGetMuteResult^>^ GetMuteAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info);

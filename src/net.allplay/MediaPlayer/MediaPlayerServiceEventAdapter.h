@@ -459,10 +459,10 @@ public:
 	virtual Windows::Foundation::IAsyncOperation<MediaPlayerGetPlaylistInfoResult^>^ GetPlaylistInfoAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info);
 	virtual Windows::Foundation::IAsyncOperation<MediaPlayerNextResult^>^ NextAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info);
     virtual Windows::Foundation::IAsyncOperation<MediaPlayerPauseResult^>^ PauseAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info);
-    virtual Windows::Foundation::IAsyncOperation<MediaPlayerPlayResult^>^ PlayAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info, _In_ int32 interfaceMemberItemIndex, _In_ int64 interfaceMemberStartPositionMsecs, _In_ bool interfaceMemberPauseStateOnly);
+    virtual Windows::Foundation::IAsyncOperation<MediaPlayerPlayResult^>^ PlayAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info, _In_ int32 itemIndex, _In_ int64 startPositionMsecs, _In_ bool pauseStateOnly);
     virtual Windows::Foundation::IAsyncOperation<MediaPlayerPreviousResult^>^ PreviousAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info);
     virtual Windows::Foundation::IAsyncOperation<MediaPlayerResumeResult^>^ ResumeAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info);
-    virtual Windows::Foundation::IAsyncOperation<MediaPlayerSetPositionResult^>^ SetPositionAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info, _In_ int64 interfaceMemberPositionMsecs);
+    virtual Windows::Foundation::IAsyncOperation<MediaPlayerSetPositionResult^>^ SetPositionAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info, _In_ int64 positionMsecs);
     virtual Windows::Foundation::IAsyncOperation<MediaPlayerStopResult^>^ StopAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info);
 	virtual Windows::Foundation::IAsyncOperation<MediaPlayerUpdatePlaylistResult^>^ UpdatePlaylistAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info, _In_  Windows::Foundation::Collections::IVector<MediaItem^>^ playlistItems, _In_ int32 index, _In_ Platform::String^ controllerType, _In_ Platform::String^ playlistUserData);
 

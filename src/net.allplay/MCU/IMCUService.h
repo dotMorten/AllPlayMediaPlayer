@@ -33,10 +33,10 @@ public:
     Windows::Foundation::IAsyncOperation<MCUGetCurrentItemUrlResult^>^ GetCurrentItemUrlAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info );
 
     // Implement this function to handle calls to the PlayItem method.
-    Windows::Foundation::IAsyncOperation<MCUPlayItemResult^>^ PlayItemAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info , _In_ Platform::String^ interfaceMemberUrl, _In_ Platform::String^ interfaceMemberTitle, _In_ Platform::String^ interfaceMemberArtist, _In_ Platform::String^ interfaceMemberThumbnailUrl, _In_ int64 interfaceMemberDuration, _In_ Platform::String^ interfaceMemberAlbum, _In_ Platform::String^ interfaceMemberGenre);
+    Windows::Foundation::IAsyncOperation<MCUPlayItemResult^>^ PlayItemAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info , _In_ Platform::String^ url, _In_ Platform::String^ title, _In_ Platform::String^ artist, _In_ Platform::String^ thumbnailUrl, _In_ int64 duration, _In_ Platform::String^ album, _In_ Platform::String^ genre);
 
     // Implement this function to handle calls to the SetExternalSource method.
-    Windows::Foundation::IAsyncOperation<MCUSetExternalSourceResult^>^ SetExternalSourceAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info , _In_ Platform::String^ interfaceMemberName, _In_ bool interfaceMemberInterruptible, _In_ bool interfaceMemberVolumeCtrlEnabled);
+    Windows::Foundation::IAsyncOperation<MCUSetExternalSourceResult^>^ SetExternalSourceAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info , _In_ Platform::String^ name, _In_ bool interruptible, _In_ bool volumeCtrlEnabled);
 
     // Implement this function to handle calls to the ToggleShuffleMode method.
     Windows::Foundation::IAsyncOperation<MCUToggleShuffleModeResult^>^ ToggleShuffleModeAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info );

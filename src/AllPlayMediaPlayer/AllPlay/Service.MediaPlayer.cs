@@ -12,7 +12,8 @@ namespace AllPlayMediaPlayer.AllPlay
 {
     public partial class Service : net.allplay.MediaPlayer.IMediaPlayerService
     {
-        net.allplay.MediaPlayer.MediaPlayerProducer mediaProducer;
+        private net.allplay.MediaPlayer.MediaPlayerProducer mediaProducer;
+
         IAsyncOperation<MediaPlayerForcedPreviousResult> IMediaPlayerService.ForcedPreviousAsync(AllJoynMessageInfo info)
         {
             System.Diagnostics.Debug.WriteLine($"IMediaPlayerService.ForcedPreviousAsync() @ {info?.SenderUniqueName ?? "null"}");
@@ -24,16 +25,17 @@ namespace AllPlayMediaPlayer.AllPlay
         {
             System.Diagnostics.Debug.WriteLine($"IMediaPlayerService.GetPlayerInfoAsync() @ {info?.SenderUniqueName ?? "null"}");
             Dictionary<string, int> slaveNames = new Dictionary<string, int>();
-            slaveNames.Add("Slave1", 1234);
-            slaveNames.Add("Slave2", 1235);
+            //slaveNames.Add("Slave1", 1234);
+            //slaveNames.Add("Slave2", 1235);
             return Task.FromResult(MediaPlayerGetPlayerInfoResult.CreateSuccessResult(
                  $"{GetHostName()} Speaker",
                 // TODO: If running headless, only support audio
                 new List<string> { "audio/mpeg", "video/mp4", "video/mpeg", "image/jpeg", "supportsPartyMode" },
                 100,
-                new MediaPlayerZoneInfo() { Value1 = GetUniqueDeviceId(), Value2 = 0, Value3 = slaveNames }
+                new MediaPlayerZoneInfo() { Value1 = "net.allplay.MediaPlayer.i" + GetUniqueDeviceId(), Value2 = 0, Value3 = slaveNames }
                 )).AsAsyncOperation();
         }
+
         private static string GetHostName()
         {
             var hostNamesList = Windows.Networking.Connectivity.NetworkInformation
@@ -49,6 +51,7 @@ namespace AllPlayMediaPlayer.AllPlay
 
             return null;
         }
+
         private static string GetUniqueDeviceId()
         {
             var container = Windows.Storage.ApplicationData.Current.LocalSettings.CreateContainer("MediaPlayer", Windows.Storage.ApplicationDataCreateDisposition.Always);
@@ -88,7 +91,7 @@ namespace AllPlayMediaPlayer.AllPlay
 
         IAsyncOperation<MediaPlayerPlayResult> IMediaPlayerService.PlayAsync(AllJoynMessageInfo info, int itemIndex, long startPositionMsecs, bool pauseStateOnly)
         {
-            if(itemIndex < 0 || itemIndex>=Playlist.Items.Count)
+            if (itemIndex < 0 || itemIndex >= Playlist.Items.Count)
                 return Task.FromResult(MediaPlayerPlayResult.CreateFailureResult((int)QStatus.ER_BAD_ARG_1)).AsAsyncOperation();
             if (startPositionMsecs < 0)
                 return Task.FromResult(MediaPlayerPlayResult.CreateFailureResult((int)QStatus.ER_BAD_ARG_2)).AsAsyncOperation();
@@ -130,13 +133,13 @@ namespace AllPlayMediaPlayer.AllPlay
             return Task.FromResult(MediaPlayerResumeResult.CreateSuccessResult()).AsAsyncOperation();
         }
 
-        IAsyncOperation<MediaPlayerSetPositionResult> IMediaPlayerService.SetPositionAsync(AllJoynMessageInfo info, long interfaceMemberPositionMsecs)
+        IAsyncOperation<MediaPlayerSetPositionResult> IMediaPlayerService.SetPositionAsync(AllJoynMessageInfo info, long positionMsecs)
         {
-            System.Diagnostics.Debug.WriteLine($"IMediaPlayerService.SetPositionAsync({interfaceMemberPositionMsecs}) @ {info?.SenderUniqueName ?? "null"}");
+            System.Diagnostics.Debug.WriteLine($"IMediaPlayerService.SetPositionAsync({positionMsecs}) @ {info?.SenderUniqueName ?? "null"}");
             //if (player.CanSeek)
             var _ = player.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
-                player.Position = TimeSpan.FromMilliseconds(interfaceMemberPositionMsecs);
+                player.Position = TimeSpan.FromMilliseconds(positionMsecs);
             });
             return Task.FromResult(MediaPlayerSetPositionResult.CreateSuccessResult()).AsAsyncOperation();
         }
@@ -186,7 +189,6 @@ namespace AllPlayMediaPlayer.AllPlay
             value = value.ToUpper();
             if(value != "NONE" || value!= "SINGLE" || value != "ALL")
                 Playlist.RepeatMode = value;
-            RaiseStateChanged();
             return Task.FromResult(MediaPlayerSetLoopModeResult.CreateSuccessResult()).AsAsyncOperation();
         }
 
@@ -199,6 +201,7 @@ namespace AllPlayMediaPlayer.AllPlay
         IAsyncOperation<MediaPlayerGetShuffleModeResult> IMediaPlayerService.GetShuffleModeAsync(AllJoynMessageInfo info)
         {
             System.Diagnostics.Debug.WriteLine($"IMediaPlayerService.GetShuffleModeAsync() @ {info?.SenderUniqueName ?? "null"}");
+            RaiseStateChanged();
             return Task.FromResult(MediaPlayerGetShuffleModeResult.CreateSuccessResult(Playlist.Shuffle ? "SHUFFLE" : "LINEAR")).AsAsyncOperation();
         }
 
@@ -207,12 +210,6 @@ namespace AllPlayMediaPlayer.AllPlay
             System.Diagnostics.Debug.WriteLine($"IMediaPlayerService.SetShuffleModeAsync({value}) @ {info?.SenderUniqueName ?? "null"}");
             Playlist.Shuffle = value.Equals("SHUFFLE", StringComparison.OrdinalIgnoreCase);
             return Task.FromResult(MediaPlayerSetShuffleModeResult.CreateSuccessResult()).AsAsyncOperation();
-        }
-
-        IAsyncOperation<MediaPlayerGetVersionResult> IMediaPlayerService.GetVersionAsync(AllJoynMessageInfo info)
-        {
-            System.Diagnostics.Debug.WriteLine($"IMediaPlayerService.GetVersionAsync() @ {info?.SenderUniqueName ?? "null"}");
-            return Task.FromResult(MediaPlayerGetVersionResult.CreateSuccessResult(1)).AsAsyncOperation();
         }
 
         IAsyncOperation<MediaPlayerGetPlaylistResult> IMediaPlayerService.GetPlaylistAsync(AllJoynMessageInfo info)
@@ -245,9 +242,15 @@ namespace AllPlayMediaPlayer.AllPlay
                     UserData = " "
                 }
                 ));
-            Playlist.UpdatePlaylist(mediaItems);
+            Playlist.UpdatePlaylist(mediaItems, index);
             mediaProducer.Signals.PlaylistChanged();
             return Task.FromResult(MediaPlayerUpdatePlaylistResult.CreateSuccessResult()).AsAsyncOperation();
+        }
+
+        IAsyncOperation<MediaPlayerGetVersionResult> IMediaPlayerService.GetVersionAsync(AllJoynMessageInfo info)
+        {
+            System.Diagnostics.Debug.WriteLine($"IMediaPlayerService.GetVersionAsync() @ {info?.SenderUniqueName ?? "null"}");
+            return Task.FromResult(MediaPlayerGetVersionResult.CreateSuccessResult(1)).AsAsyncOperation();
         }
     }
 }

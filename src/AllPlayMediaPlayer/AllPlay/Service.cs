@@ -16,20 +16,23 @@ namespace AllPlayMediaPlayer.AllPlay
     public partial class Service 
     {
         //private Windows.Media.Playback.MediaPlayer player;
-        private AllJoynBusAttachment bus;
+        private readonly AllJoynBusAttachment bus;
+        private readonly net.allplay.AllPlayProducer allplayProducer;
         //private Windows.Media.Playback.MediaPlaybackList playlist;
         private MediaElement player;
         private DateTime startTime = DateTime.Now;
         //private MediaTransportControls transportControls;
-        public Playlist Playlist { get; private set; } = new Playlist();
+        public Playlist Playlist { get; } = new Playlist();
 
         public Service(MediaElement mediaElement)
         {
+            Playlist.LoadFromCache();
             //player.Source = playlist;
-            bus = new AllJoynBusAttachment();
 
+            // Initialize the alljoyn bus
+            bus = new AllJoynBusAttachment();
             bus.AboutData.IsEnabled = true;
-            bus.AboutData.DefaultAppName = "AllPlay Player"; // Windows.ApplicationModel.Package.Current.DisplayName;
+            bus.AboutData.DefaultAppName = Windows.ApplicationModel.Package.Current.DisplayName;
             bus.AboutData.DefaultManufacturer = Windows.ApplicationModel.Package.Current.PublisherDisplayName;
             bus.AboutData.DefaultDescription = "AllPlay Player Runtime"; // Windows.ApplicationModel.Package.Current.Description;
             bus.AboutData.ModelNumber = "1";
@@ -37,29 +40,67 @@ namespace AllPlayMediaPlayer.AllPlay
             bus.AboutData.SoftwareVersion = string.Format("{0}.{1}.{2}.{3}", version.Major, version.Minor, version.Build, version.Revision);
             bus.AboutData.SupportUrl = new Uri("https://github.com/dotMorten/AllPlayMediaPlayer/Issues");
 
+            // Initialize up the producers
             allplayProducer = new net.allplay.AllPlayProducer(bus);
-
             mediaProducer = allplayProducer.MediaPlayer;
             mediaProducer.Service = this;
-
             volume = allplayProducer.Volume;
             volume.Service = this;
-
             mcuProducer = allplayProducer.MCU;
             mcuProducer.Service = this;
-
             zoneProducer = allplayProducer.ZoneManager;
             zoneProducer.Service = this;
 
+#if DEBUG
             allplayProducer.Stopped += AllplayProducer_Stopped;
             allplayProducer.SessionLost += AllplayProducer_SessionLost;
             allplayProducer.SessionMemberAdded += AllplayProducer_SessionMemberAdded;
             allplayProducer.SessionMemberRemoved += AllplayProducer_SessionMemberRemoved;
+#endif
 
             player = mediaElement;
             Playlist.CurrentItemChanged += Playlist_CurrentItemChanged;
-            LoadPlaylist();
+            Playlist.ShuffleModeChanged += Playlist_ShuffleModeChanged;
+            Playlist.RepeatModeChanged += Playlist_RepeatModeChanged;
+#if DEBUG
+            LoadSamplePlaylist();
+#endif
         }
+
+#if DEBUG
+        private void LoadSamplePlaylist()
+        {
+            if (Playlist.Items.Count == 0)
+            {
+                var mediaItems = new List<MediaItem>();
+                for (int i = 0; i < 20; i++)
+                {
+                    var item = CreateMockMediaItem(i);
+                    mediaItems.Add(item);
+                    //playlist.Items.Add(new Windows.Media.Playback.MediaPlaybackItem(Windows.Media.Core.MediaSource.CreateFromUri(new Uri(item.Url))));
+                }
+                Playlist.UpdatePlaylist(mediaItems, 0);
+            }
+        }
+
+        private static MediaItem CreateMockMediaItem(int id)
+        {
+            return new MediaItem()
+            {
+                Url = id % 2 == 0 ? "http://www.tonycuffe.com/mp3/tail%20toddle.mp3" : "http://www.tonycuffe.com/mp3/cairnomount.mp3",
+                Album = "Album",
+                Artist = "Artist",
+                Duration = (long)(id % 2 == 0 ? TimeSpan.FromSeconds(60 + 36) : TimeSpan.FromSeconds(60 + 26)).TotalMilliseconds,
+                Genre = "Genre",
+                MediaType = "mp3",
+                MediumDesc = new Dictionary<string, object>(),
+                ThumbnailUrl = "http://www.djparallelnyc.com/No-album-art-itunes.jpg",
+                Title = "Title " + id.ToString(),
+                OtherData = new Dictionary<string, string>(),
+                UserData = "upnp"
+            };
+        }
+#endif
 
         private void Playlist_CurrentItemChanged(object sender, MediaItem e)
         {
@@ -70,6 +111,19 @@ namespace AllPlayMediaPlayer.AllPlay
             });
         }
 
+        private void Playlist_ShuffleModeChanged(object sender, EventArgs e)
+        {
+            mediaProducer.Signals.ShuffleModeChanged(Playlist.Shuffle ? "SHUFFLE" : "LINEAR");
+            RaiseStateChanged();
+        }
+
+        private void Playlist_RepeatModeChanged(object sender, EventArgs e)
+        {
+            mediaProducer.Signals.LoopModeChanged(Playlist.RepeatMode);
+            RaiseStateChanged();
+        }
+
+#if DEBUG
         private void AllplayProducer_Stopped(net.allplay.AllPlayProducer sender, AllJoynProducerStoppedEventArgs args)
         {
             System.Diagnostics.Debug.WriteLine($"IMediaPlayerService.Producer stopped: {args.Status}");
@@ -89,40 +143,10 @@ namespace AllPlayMediaPlayer.AllPlay
         {
             System.Diagnostics.Debug.WriteLine($"IMediaPlayerService.Session Member Removed: {args.UniqueName}");
         }
+#endif
 
-        private void LoadPlaylist()
-        {
-            var mediaItems = new List<MediaItem>();
-            for (int i = 0; i < 20; i++)
-            {
-                var item = CreateMockMediaItem(i);
-                mediaItems.Add(item);
-                //playlist.Items.Add(new Windows.Media.Playback.MediaPlaybackItem(Windows.Media.Core.MediaSource.CreateFromUri(new Uri(item.Url))));
-            }
-            Playlist.UpdatePlaylist(mediaItems);
-        }
-        private static MediaItem CreateMockMediaItem(int id)
-        {
-            return new MediaItem()
-            {
-                Url = id%2==0? "http://www.tonycuffe.com/mp3/tail%20toddle.mp3" : "http://www.tonycuffe.com/mp3/cairnomount.mp3",
-                Album = "Album",
-                Artist = "Artist",
-                Duration = (long) (id % 2 == 0 ? TimeSpan.FromSeconds(60+36) : TimeSpan.FromSeconds(60 + 26)).TotalMilliseconds,
-                Genre = "Genre",
-                MediaType = "mp3",
-                MediumDesc = new Dictionary<string, object>(),
-                ThumbnailUrl = "http://google.com/thumbnail.jpg",
-                Title = "Title " + id.ToString(),
-                OtherData = new Dictionary<string, string>(),
-                UserData = "upnp"
-            };
-        }
-
-        net.allplay.AllPlayProducer allplayProducer;
         public void Start()
         {
-            //bus.Connect();
             allplayProducer.Start();
 
             player.CurrentStateChanged += Player_CurrentStateChanged;
@@ -130,35 +154,19 @@ namespace AllPlayMediaPlayer.AllPlay
             player.MediaOpened += Player_MediaOpened;
             player.SeekCompleted += Player_SeekCompleted;
             player.MediaEnded += Player_MediaEnded;
-            player.BufferingProgressChanged += Player_BufferingProgressChanged;
+            //player.BufferingProgressChanged += Player_BufferingProgressChanged;
             //player.BufferingEnded += Player_BufferingEnded;
             //player.BufferingStarted += Player_BufferingStarted;
-            //player.CurrentStateChanged += Player_CurrentStateChanged;
-            //player.MediaEnded += Player_MediaEnded;
-            //player.MediaFailed += Player_MediaFailed;
-            //player.MediaOpened += Player_MediaOpened;
             //player.VolumeChanged += Player_VolumeChanged;
             //player.SystemMediaTransportControls.AutoRepeatModeChangeRequested += SystemMediaTransportControls_AutoRepeatModeChangeRequested;
             //player.SystemMediaTransportControls.ShuffleEnabledChangeRequested += SystemMediaTransportControls_ShuffleEnabledChangeRequested;
             player.VolumeChanged += Player_VolumeChanged;
-            //playlist.CurrentItemChanged += Playlist_CurrentItemChanged;
         }
 
         private void Player_MediaEnded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             if (Playlist.CanMoveNext)
                 Playlist.MoveNext();
-        }
-
-        private void Player_BufferingProgressChanged(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            //TODO
-            //player.BufferingProgress
-        }
-
-        private void Player_SeekCompleted(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            RaiseStateChanged();
         }
 
         private void Player_MediaOpened(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -171,16 +179,32 @@ namespace AllPlayMediaPlayer.AllPlay
             RaiseStateChanged();
             mediaProducer.Signals.OnPlaybackError(Playlist.CurrentItemIndex, e.ErrorMessage, "");
         }
-        
+
+        // Store last known state of player so we can read them from background threads
+        // without needing to switch to the UI thread
+        private TimeSpan lastKnownPlayerPosition;
+        private DateTime lastKnowPlayerPositionTimestamp;
+        private Windows.UI.Xaml.Media.MediaElementState currentState = Windows.UI.Xaml.Media.MediaElementState.Closed;
+
         private void Player_CurrentStateChanged(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             currentState = player.CurrentState;
+            lastKnownPlayerPosition = player.Position;
+            lastKnowPlayerPositionTimestamp = DateTime.Now;
+            RaiseStateChanged();
+        }
+
+        private void Player_SeekCompleted(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            // TODO: Throttle, since this fires very frequently if dragging the slider
+            lastKnownPlayerPosition = player.Position;
+            lastKnowPlayerPositionTimestamp = DateTime.Now;
             RaiseStateChanged();
         }
 
         private void Player_VolumeChanged(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            volume.Signals.VolumeChanged((short)player.Volume);
+            volume.Signals.VolumeChanged((short)(player.Volume * 100));
         }
         
         private void RaiseStateChanged()
@@ -195,20 +219,26 @@ namespace AllPlayMediaPlayer.AllPlay
                 items.Add(Playlist.CurrentItem);
             if (Playlist.NextItem != null)
                 items.Add(Playlist.NextItem);
-            
+
+            long currentPosition = 0;
+            if(currentState == Windows.UI.Xaml.Media.MediaElementState.Playing || 
+                currentState == Windows.UI.Xaml.Media.MediaElementState.Paused ||
+                currentState == Windows.UI.Xaml.Media.MediaElementState.Buffering)
+                currentPosition = (long)(DateTime.Now - lastKnowPlayerPositionTimestamp + lastKnownPlayerPosition).TotalMilliseconds;
+
             return new MediaPlayerPlayState()
             {
-                CurrentIndex = Playlist.CurrentItemIndex,
+                CurrentIndex = Math.Max(0, Playlist.CurrentItemIndex),
                 MediaItems = items,
                 AudioChannels = 2,
-                NextIndex = Playlist.NextItemIndex,
-                //TODO Position = (long)player.Position.TotalMilliseconds,
+                NextIndex = Math.Max(0, Playlist.NextItemIndex),
+                Position = currentPosition,
                 SampleRate = 0,
                 BitsPerSample = 0,
                 State = PlayerStateToString(currentState),
             };
         }
-        private Windows.UI.Xaml.Media.MediaElementState currentState = Windows.UI.Xaml.Media.MediaElementState.Closed;
+        
         private static string PlayerStateToString(Windows.UI.Xaml.Media.MediaElementState state)
         {
             switch (state)
@@ -236,8 +266,7 @@ namespace AllPlayMediaPlayer.AllPlay
                 default:
                     return "STOPPED";
             }
-        }
-        
+        }        
 
         public string Manifest { get; private set; }
     }

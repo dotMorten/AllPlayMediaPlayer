@@ -27,10 +27,10 @@ public interface class IVolumeService
 {
 public:
     // Implement this function to handle calls to the AdjustVolume method.
-    Windows::Foundation::IAsyncOperation<VolumeAdjustVolumeResult^>^ AdjustVolumeAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info , _In_ int16 interfaceMemberDelta);
+    Windows::Foundation::IAsyncOperation<VolumeAdjustVolumeResult^>^ AdjustVolumeAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info , _In_ int16 delta);
 
     // Implement this function to handle calls to the AdjustVolumePercent method.
-    Windows::Foundation::IAsyncOperation<VolumeAdjustVolumePercentResult^>^ AdjustVolumePercentAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info , _In_ double interfaceMemberChange);
+    Windows::Foundation::IAsyncOperation<VolumeAdjustVolumePercentResult^>^ AdjustVolumePercentAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info , _In_ double change);
 
     // Implement this function to handle requests for the value of the Enabled property.
     //

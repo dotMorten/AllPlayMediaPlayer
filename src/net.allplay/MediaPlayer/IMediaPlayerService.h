@@ -45,7 +45,7 @@ public:
     Windows::Foundation::IAsyncOperation<MediaPlayerPauseResult^>^ PauseAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info );
 
     // Implement this function to handle calls to the Play method.
-    Windows::Foundation::IAsyncOperation<MediaPlayerPlayResult^>^ PlayAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info , _In_ int32 interfaceMemberItemIndex, _In_ int64 interfaceMemberStartPositionMsecs, _In_ bool interfaceMemberPauseStateOnly);
+    Windows::Foundation::IAsyncOperation<MediaPlayerPlayResult^>^ PlayAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info , _In_ int32 itemIndex, _In_ int64 startPositionMsecs, _In_ bool pauseStateOnly);
 
     // Implement this function to handle calls to the Previous method.
     Windows::Foundation::IAsyncOperation<MediaPlayerPreviousResult^>^ PreviousAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info );
@@ -54,7 +54,7 @@ public:
     Windows::Foundation::IAsyncOperation<MediaPlayerResumeResult^>^ ResumeAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info );
 
     // Implement this function to handle calls to the SetPosition method.
-    Windows::Foundation::IAsyncOperation<MediaPlayerSetPositionResult^>^ SetPositionAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info , _In_ int64 interfaceMemberPositionMsecs);
+    Windows::Foundation::IAsyncOperation<MediaPlayerSetPositionResult^>^ SetPositionAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info , _In_ int64 positionMsecs);
 
     // Implement this function to handle calls to the Stop method.
     Windows::Foundation::IAsyncOperation<MediaPlayerStopResult^>^ StopAsync(_In_ Windows::Devices::AllJoyn::AllJoynMessageInfo^ info );
