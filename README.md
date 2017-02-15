@@ -12,13 +12,11 @@ Read more about AllPlay here: https://www.qualcomm.com/products/allplay
 - [AllPlay Radio](https://play.google.com/store/apps/details?id=com.qualcomm.qce.allplay.radio)
 - [AllPlay JukeBox](https://play.google.com/store/apps/details?id=com.qualcomm.qce.allplay.jukebox)
 - [Panasonic Music Streaming](https://play.google.com/store/apps/details?id=com.panasonic.avc.diga.wwmusicstreaming)
-- [Spotify Music](https://play.google.com/store/apps/details?id=com.spotify.music)
 
 #### iOS
 - [AllPlay Radio](https://itunes.apple.com/us/app/allplay-radio/id927540908?mt=8)
 - [AllPlay JukeBox](https://itunes.apple.com/us/app/allplay-jukebox/id904386956?mt=8)
 - [Panasonic Music Streaming](https://fnd.io/#/us/ios-universal-app/600250238-panasonic-music-streaming-by-panasonic-co)
-- [Spotify Music](https://fnd.io/#/us/ios-universal-app/324684580-spotify-music-by-spotify-ltd)
 - [Monster Soundstage](https://itunes.apple.com/us/app/monster-soundstage/id928625334?mt=8)
 
 #### Windows
